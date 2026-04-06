@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>La Cuenta Regresiva | Jhon & Keyla 💍</title>
+    
+    <meta name="theme-color" content="#000000">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;400&family=Playwrite+IE:wght@100&display=swap" rel="stylesheet">
+
+    <style>
+        :root { --olivo: #556b2f; }
+        
+        body, html { 
+            margin: 0; padding: 0; height: 100%; 
+            background-color: #000; color: white;
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden;
+        }
+
+        /* Fondo con la foto de ustedes */
+        .background {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('foto_contador.jpg');
+            background-size: cover; background-position: center;
+            z-index: -1;
+            filter: brightness(0.8);
+        }
+
+        .container {
+            height: 100vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+            padding: 0 20px;
+        }
+
+        .titulo {
+            font-family: 'Playwrite IE', cursive; font-size: clamp(1.2rem, 5vw, 2rem);
+            color: var(--olivo); margin-bottom: 10px;
+        }
+
+        .nombres {
+            font-weight: 100; text-transform: uppercase; letter-spacing: 10px;
+            font-size: clamp(1rem, 4vw, 1.5rem); margin-bottom: 50px;
+        }
+
+        /* DISEÑO DEL CONTADOR GRANDE */
+        .countdown-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px;
+            max-width: 500px; width: 100%;
+        }
+
+        .box { text-align: center; }
+
+        .number {
+            font-size: clamp(4rem, 15vw, 7rem); font-weight: 100;
+            line-height: 1; color: white; display: block;
+        }
+
+        .label {
+            font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase;
+            margin-top: 10px; color: var(--olivo); font-weight: 400;
+        }
+
+        .footer-date {
+            position: absolute; bottom: 40px; font-weight: 200;
+            letter-spacing: 5px; font-size: 0.8rem; opacity: 0.7;
+        }
+
+        @media (min-width: 768px) {
+            .countdown-grid { grid-template-columns: repeat(4, 1fr); max-width: 800px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background"></div>
+
+    <div class="container">
+        <div class="titulo">Faltan solo...</div>
+        <div class="nombres">Jhon & Keyla</div>
+
+        <div class="countdown-grid">
+            <div class="box">
+                <span class="number" id="days">00</span>
+                <span class="label">Días</span>
+            </div>
+            <div class="box">
+                <span class="number" id="hours">00</span>
+                <span class="label">Horas</span>
+            </div>
+            <div class="box">
+                <span class="number" id="minutes">00</span>
+                <span class="label">Minutos</span>
+            </div>
+            <div class="box">
+                <span class="number" id="seconds">00</span>
+                <span class="label">Segundos</span>
+            </div>
+        </div>
+
+        <div class="footer-date">07 . NOV . 2026 | 16:00H</div>
+    </div>
+
+    <script>
+        function updateCountdown() {
+            // Fecha objetivo: 7 de Noviembre 2026, 4:00 PM (16:00)
+            const targetDate = new Date(2026, 10, 7, 16, 0, 0).getTime();
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = d < 10 ? "0" + d : d;
+            document.getElementById("hours").innerText = h < 10 ? "0" + h : h;
+            document.getElementById("minutes").innerText = m < 10 ? "0" + m : m;
+            document.getElementById("seconds").innerText = s < 10 ? "0" + s : s;
+
+            if (diff < 0) {
+                clearInterval(timer);
+                document.querySelector(".container").innerHTML = "<h1>¡HOY ES EL GRAN DÍA! 💍</h1>";
+            }
+        }
+
+        const timer = setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>
