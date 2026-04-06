@@ -1,56 +1,211 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Jhon & Keyla | Contador 💍</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;400;600&family=Playwrite+IE:wght@100&display=swap" rel="stylesheet">
+
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <title>Jhon & Keyla | La Cuenta Regresiva 💍</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;400;600&family=Playwrite+IE:wght@100&display=swap"
+        rel="stylesheet">
+
     <style>
-        :root { --arena: #c2a36a; }
-        body, html { margin: 0; padding: 0; height: 100%; background-color: #000; color: white; font-family: 'Montserrat', sans-serif; overflow: hidden; }
-        
-        .background {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            /* Apuntamos al nuevo nombre simple */
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('boda.jpg');
-            background-size: cover; background-position: center; z-index: -1;
+        :root {
+            --arena: #c2a36a;
+            --blanco: #ffffff;
+            --sombra: 2px 2px 15px rgba(0, 0, 0, 0.8);
         }
 
-        .container { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-        .titulo { font-family: 'Playwrite IE', cursive; font-size: 1.5rem; color: var(--arena); margin-bottom: 10px; }
-        .nombres { font-weight: 100; text-transform: uppercase; letter-spacing: 10px; font-size: 1rem; margin-bottom: 50px; }
-        .countdown-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; width: 100%; max-width: 400px; }
-        .number { font-size: 4.5rem; font-weight: 100; line-height: 1; display: block; }
-        .label { font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase; color: var(--arena); margin-top: 10px; }
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #000000 !important;
+            color: white;
+            overflow: hidden;
+        }
+
+        /* ESTRUCTURA IGUAL AL SAVE THE DATE */
+        .hero {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            /* Usamos la misma técnica de degradado que te funcionó */
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('boda.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            box-sizing: border-box;
+            padding: 80px 20px;
+        }
+
+        .content-block {
+            width: 100%;
+            z-index: 2;
+        }
+
+        .titulo-script {
+            font-family: 'Playwrite IE', cursive;
+            font-size: clamp(1.2rem, 5vw, 1.8rem);
+            color: var(--arena);
+            margin-bottom: 5px;
+            text-shadow: var(--sombra);
+        }
+
+        .nombres-header {
+            font-weight: 100;
+            text-transform: uppercase;
+            letter-spacing: 12px;
+            font-size: clamp(0.9rem, 4vw, 1.2rem);
+            text-shadow: var(--sombra);
+            opacity: 0.9;
+        }
+
+        /* --- CONTADOR GIGANTE --- */
+        .contador-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .bloque-tiempo {
+            flex: 1;
+            text-align: center;
+        }
+
+        .numero {
+            font-size: clamp(3rem, 14vw, 6.5rem);
+            font-weight: 100;
+            line-height: 1;
+            display: block;
+            text-shadow: var(--sombra);
+        }
+
+        .etiqueta {
+            font-size: 0.6rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--arena);
+            font-weight: 600;
+            margin-top: 10px;
+            display: block;
+        }
+
+        .fecha-footer {
+            font-size: 0.8rem;
+            font-weight: 200;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            opacity: 0.8;
+            color: var(--arena);
+            text-shadow: var(--sombra);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .hero {
+            animation: fadeIn 2s ease;
+        }
+
+        /* Ajuste para que en celulares pequeños no se peguen */
+        @media (max-width: 380px) {
+            .contador-wrapper {
+                gap: 15px;
+                /* Volvemos a un gap pequeño solo en pantallas mini */
+            }
+
+            .numero {
+                font-size: clamp(2.5rem, 12vw, 4rem);
+                /* Achicamos un pelín el número */
+            }
+        }
     </style>
 </head>
+
 <body>
-    <div class="background"></div>
-    <div class="container">
-        <div class="titulo">Faltan solo...</div>
-        <div class="nombres">Jhon & Keyla</div>
-        <div class="countdown-grid">
-            <div class="box"><span class="number" id="days">00</span><span class="label">Días</span></div>
-            <div class="box"><span class="number" id="hours">00</span><span class="label">Horas</span></div>
-            <div class="box"><span class="number" id="minutes">00</span><span class="label">Minutos</span></div>
-            <div class="box"><span class="number" id="seconds">00</span><span class="label">Segundos</span></div>
+
+    <section class="hero">
+        <div class="content-block">
+            <div class="titulo-script">Faltan solo...</div>
+            <div class="nombres-header">Jhon & Keyla</div>
         </div>
-    </div>
+
+        <div class="content-block">
+            <div class="contador-wrapper">
+                <div class="bloque-tiempo">
+                    <span class="numero" id="days">00</span>
+                    <span class="etiqueta">Días</span>
+                </div>
+                <div class="bloque-tiempo">
+                    <span class="numero" id="hours">00</span>
+                    <span class="etiqueta">Horas</span>
+                </div>
+                <div class="bloque-tiempo">
+                    <span class="numero" id="minutes">00</span>
+                    <span class="etiqueta">Minutos</span>
+                </div>
+                <div class="bloque-tiempo">
+                    <span class="numero" id="seconds">00</span>
+                    <span class="etiqueta">Segundos</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-block">
+            <div class="fecha-footer">07 . NOV . 2026 | 16:00H</div>
+        </div>
+    </section>
+
     <script>
-        function up() {
-            const t = new Date(2026, 10, 7, 16, 0, 0).getTime();
-            const n = new Date().getTime();
-            const d = t - n;
-            const days = Math.floor(d/(1000*60*60*24));
-            const hours = Math.floor((d%(1000*60*60*24))/(1000*60*60));
-            const mins = Math.floor((d%(1000*60*60))/(1000*60));
-            const secs = Math.floor((d%(1000*60))/1000);
-            document.getElementById("days").innerText = days;
-            document.getElementById("hours").innerText = hours;
-            document.getElementById("minutes").innerText = mins;
-            document.getElementById("seconds").innerText = secs;
+        function update() {
+            // Fecha: 7 Noviembre 2026, 4 PM
+            const target = new Date(2026, 10, 7, 16, 0, 0).getTime();
+            const now = new Date().getTime();
+            const diff = target - now;
+
+            if (diff <= 0) {
+                document.querySelector(".contador-wrapper").innerHTML = "<h2 style='font-weight:100; letter-spacing:8px;'>¡LLEGÓ EL DÍA! 💍</h2>";
+                return;
+            }
+
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = d < 10 ? "0" + d : d;
+            document.getElementById("hours").innerText = h < 10 ? "0" + h : h;
+            document.getElementById("minutes").innerText = m < 10 ? "0" + m : m;
+            document.getElementById("seconds").innerText = s < 10 ? "0" + s : s;
         }
-        setInterval(up, 1000); up();
+
+        setInterval(update, 1000);
+        update();
     </script>
 </body>
+
 </html>
