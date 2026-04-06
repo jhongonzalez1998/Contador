@@ -78,19 +78,21 @@
         .contador-wrapper {
             display: flex;
             justify-content: center;
-            gap: 40px;
+            flex-wrap: wrap;
+            gap: 30px 20px;
             width: 100%;
-            max-width: 700px;
+            max-width: 500px;
             margin: 0 auto;
         }
 
         .bloque-tiempo {
-            flex: 1;
+            flex: 1 1 40%;
             text-align: center;
+            min-width: 100px;
         }
 
         .numero {
-            font-size: clamp(3rem, 14vw, 6.5rem);
+            font-size: clamp(3.5rem, 15vw, 6.5rem);
             font-weight: 100;
             line-height: 1;
             display: block;
@@ -132,15 +134,15 @@
         }
 
         /* Ajuste para que en celulares pequeños no se peguen */
-        @media (max-width: 380px) {
-            .contador-wrapper {
-                gap: 15px;
-                /* Volvemos a un gap pequeño solo en pantallas mini */
+        @media (min-width: 768px) {
+            .bloque-tiempo {
+                flex: 1;
+                /* En PC vuelven a estar los 4 en una sola línea */
             }
 
-            .numero {
-                font-size: clamp(2.5rem, 12vw, 4rem);
-                /* Achicamos un pelín el número */
+            .contador-wrapper {
+                max-width: 800px;
+                gap: 0 40px;
             }
         }
     </style>
